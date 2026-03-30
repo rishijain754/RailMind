@@ -50,6 +50,17 @@ train_optimizer/
 - **Python 3.9+** (tested on 3.10, 3.11, 3.12)
 - **pip** (Python package manager)
 - A terminal with UTF-8 support (Windows Terminal, PowerShell, macOS Terminal, or any modern Linux terminal)
+- typer[all]>=0.9.0
+-rich>=13.0.0
+-networkx>=3.0
+-scikit-learn>=1.3.0
+-pandas>=2.0.0
+-numpy>=1.24.0
+-joblib>=1.3.0
+-requests>=2.31.0
+-beautifulsoup4>=4.12.2
+-fake-useragent>=1.2.1
+-tqdm>=4.66.0
 
 ---
 
