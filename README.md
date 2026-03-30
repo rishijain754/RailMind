@@ -1,247 +1,327 @@
-# RailMind — AI Train Route Optimizer & Delay Predictor
+# 🚆 RailMind — AI Train Route Optimizer & Delay Predictor
 
-## Project Report
-
----
-
-## 1. Problem Statement
-
-Indian Railways is the fourth-largest railway network in the world, carrying over 23 million passengers daily across more than 7,000 stations. Despite this massive scale, passengers routinely face two frustrating pain points:
-
-1. **Unpredictable Delays** — Train delays are endemic to the Indian rail system. According to publicly available statistics, the average punctuality of Indian long-distance trains has historically hovered around 65–75%. Passengers have no reliable way to anticipate *how late* a specific train will be on a given day, making trip planning a guessing game.
-
-2. **Poor Connection Planning** — For journeys that require changing trains at an intermediate station, passengers must manually estimate whether a delayed first train will still allow them to catch their connecting service. There is no automated tool that combines delay forecasts with timetable data to answer the question: *"Will I make my connection?"*
-
-**RailMind** addresses both problems by combining a **graph-based route search engine** with a **machine-learning delay prediction model** to give passengers intelligent, delay-aware route recommendations.
+**RailMind** is a command-line AI system for Indian railway route planning with machine-learning-powered delay prediction. It finds optimal train routes between stations, predicts delays using a Random Forest model, and assesses whether connecting trains at interchange stations are feasible given predicted delays.
 
 ---
 
-## 2. Why This Problem Matters
+## Features
 
-This is not an abstract academic exercise. The problem was chosen because it is observable in daily life:
-
-- **Personal experience**: Anyone who has traveled by Indian Railways on multi-leg routes knows the anxiety of watching a 20-minute delay balloon and wondering whether the connection at the next junction will hold.
-- **No existing tool does this**: Current platforms like NTES (National Train Enquiry System) and IRCTC show live running status *after the fact*, but do not predict delays *before* travel. No publicly available tool combines predictive delay analytics with route planning.
-- **Real-world impact**: A missed connection can mean an unplanned overnight stay at an unfamiliar station, additional ticket costs, and significant inconvenience. Even a probabilistic warning — "this connection is risky" — can save passengers from making a poor booking decision.
-
-The project applies core data science and AI concepts — **graph algorithms**, **supervised learning**, and **feature engineering** — to a problem space where they deliver genuine, practical value.
+- **Intelligent Route Search** — Finds direct, one-interchange, and two-interchange train routes between any two stations.
+- **ML Delay Prediction** — Predicts per-train, per-station delays using a Random Forest Regressor trained on historical data, with confidence scores derived from inter-tree variance.
+- **Connection Feasibility** — Automatically checks whether you'll make your connecting train at each interchange, labeling connections as SAFE, RISKY, or NOT POSSIBLE.
+- **Smart Ranking** — Routes are scored and ranked using a weighted formula (40% travel time + 40% reliability + 20% simplicity) and labeled as Best Route, Fastest, or Safest.
+- **Rich Terminal UI** — Color-coded route cards, delay severity bars, spinner animations, and formatted tables via the [Rich](https://github.com/Textualize/rich) library.
 
 ---
 
-## 3. Approach & Solution Architecture
-
-RailMind is a command-line application built in Python. It is intentionally designed as a CLI tool (not a web app) to keep the focus on the algorithmic and ML layers rather than front-end concerns.
-
-### 3.1 High-Level Architecture
+## Project Structure
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    CLI Interface (Typer + Rich)          │
-│   Commands: search | stations | schedule | predict-delay│
-│              train-model | generate-data | stats        │
-└─────────────────┬───────────────────────────────────────┘
-                  │
-     ┌────────────┼────────────────────┐
-     ▼            ▼                    ▼
-┌──────────┐ ┌──────────────┐  ┌──────────────────┐
-│ Railway  │ │   Route      │  │  Delay           │
-│ Graph    │ │   Planner    │  │  Predictor       │
-│ Builder  │ │  (A*/Yen)    │  │  (Random Forest) │
-└────┬─────┘ └──────┬───────┘  └────────┬─────────┘
-     │              │                   │
-     │         ┌────┴──────┐     ┌──────┴──────┐
-     │         │Connection │     │ Recommender │
-     │         │ Checker   │     │  (Scoring)  │
-     │         └───────────┘     └─────────────┘
-     │
-     ▼
-┌──────────────────────────────────────┐
-│          Data Layer (CSV)            │
-│  stations.csv | train_schedule.csv   │
-│         historical_delays.csv        │
-└──────────────────────────────────────┘
+train_optimizer/
+├── main.py                    # CLI entry point (Typer app with all commands)
+├── requirements.txt           # Python dependencies
+├── PROJECT_REPORT.md          # Detailed project report
+│
+├── modules/                   # Core logic
+│   ├── graph_builder.py       # NetworkX MultiDiGraph construction + Haversine heuristic
+│   ├── route_planner.py       # Multi-strategy route finder (direct + interchange)
+│   ├── delay_predictor.py     # Random Forest training, persistence, and prediction
+│   ├── connection_checker.py  # Interchange feasibility analysis
+│   └── recommender.py         # Route scoring and labeling
+│
+├── utils/                     # Helpers
+│   ├── display.py             # Rich-powered terminal rendering
+│   └── data_generator.py      # Synthetic dataset generator
+│
+├── data/                      # Dataset files (generated)
+│   ├── stations.csv           # 78 Indian railway stations with coordinates
+│   ├── train_schedule.csv     # 64 trains, 235 stops, with timetable data
+│   └── historical_delays.csv  # 15,280 historical delay records
+│
+└── models/                    # Trained ML model (auto-generated)
+    ├── delay_model.pkl         # Serialized Random Forest model
+    └── delay_meta.pkl          # Label encoders and metadata
 ```
 
-### 3.2 Module Breakdown
+---
 
-| Module | File | Responsibility |
-|---|---|---|
-| **Graph Builder** | `modules/graph_builder.py` | Constructs a NetworkX `MultiDiGraph` from station and schedule CSVs. Nodes are stations; edges are direct train segments between consecutive stops. Implements a Haversine-based admissible heuristic for A*. |
-| **Route Planner** | `modules/route_planner.py` | Finds up to *k* routes between any two stations. Checks for (1) direct trains, (2) one-interchange routes, and (3) two-interchange routes. Validates connection timing with minimum 20-minute buffer windows. |
-| **Delay Predictor** | `modules/delay_predictor.py` | Trains and serves a scikit-learn `RandomForestRegressor` (120 trees, max depth 12). Features include encoded train ID, station code, zone, scheduled hour, day-of-week, month, and historical average delay. Outputs `(predicted_delay, confidence)` where confidence is derived from inter-tree variance. |
-| **Connection Checker** | `modules/connection_checker.py` | For each interchange in a route, predicts the first train's delay, computes a "buffer window" to the next departure, and labels the connection as **SAFE** (>30 min), **RISKY** (15–30 min), or **NOT POSSIBLE** (<15 min). |
-| **Recommender** | `modules/recommender.py` | Scores and ranks routes using a weighted formula: 40% travel time + 40% predicted reliability + 20% simplicity (fewer interchanges). Labels the top route as "Best Route," the fastest as "Fastest," and the most reliable as "Safest." |
-| **Display** | `utils/display.py` | Rich-powered terminal rendering: colored route cards, connection feasibility indicators, delay severity bars, model metrics panels. |
+## Prerequisites
+
+- **Python 3.9+** (tested on 3.10, 3.11, 3.12)
+- **pip** (Python package manager)
+- A terminal with UTF-8 support (Windows Terminal, PowerShell, macOS Terminal, or any modern Linux terminal)
 
 ---
 
-## 4. Data Pipeline
+## Installation
 
-### 4.1 Dataset Overview
+### 1. Clone the repository
 
-| File | Records | Description |
-|---|---|---|
-| `stations.csv` | 78 stations | Major Indian railway junctions with geo-coordinates, zone, and state information. |
-| `train_schedule.csv` | 235 stops across 64 trains | Timetable data for Rajdhani, Shatabdi, Superfast, and Express services with absolute-minute timestamps for arrival/departure. |
-| `historical_delays.csv` | 15,280 records | Simulated historical delay data covering multiple months, days-of-week, and hours for each train–station pair. Includes the actual delay in minutes and the historical average. |
+```bash
+git clone https://github.com/<your-username>/train-optimizer.git
+cd train-optimizer
+```
 
-### 4.2 Data Generation Strategy
+### 2. Create a virtual environment (recommended)
 
-Real-time delay data from Indian Railways is not available through any public API. NTES provides live running status on their website, but it is protected by anti-bot measures and rate limiting. We implemented a web scraper (`utils/ntes_scraper.py`) for NTES but found that large-scale data collection was impractical for a course project timeline.
+```bash
+python -m venv venv
 
-Instead, the project uses a **synthetic data generator** (`utils/data_generator.py`) that produces realistic delay distributions:
+# Windows
+venv\Scripts\activate
 
-- Delays follow a skewed distribution (most trains are slightly late, some are very late).
-- Zone-level and station-level variance is injected to simulate regional reliability differences.
-- Seasonal patterns (monsoon months see higher delays) and time-of-day effects (early-morning trains tend to be more punctual) are incorporated.
+# macOS / Linux
+source venv/bin/activate
+```
 
-This approach is explicitly documented as synthetic, and the system architecture is designed to pivot to real data when it becomes available.
+### 3. Install dependencies
 
----
+```bash
+pip install -r requirements.txt
+```
 
-## 5. Key Technical Decisions
+The required packages are:
 
-### 5.1 Why a MultiDiGraph?
-
-Indian Railways frequently has multiple trains running the same route segment (e.g., Mumbai–Surat is served by dozens of trains). A standard graph would collapse these into a single edge. A **MultiDiGraph** preserves each train as a separate edge, allowing the route planner to enumerate all direct train options and compare their schedules.
-
-### 5.2 Why Random Forest over Deep Learning?
-
-The delay prediction problem is a tabular regression task with ~15,000 records and 7 features. In this regime:
-
-- **Random Forests** are well-known to outperform neural networks on small-to-medium tabular data (see the Grinsztajn et al. 2022 benchmark study).
-- They provide interpretable feature importances, which helped validate that the model was learning sensible patterns (e.g., historical average delay was the strongest predictor, followed by time-of-day).
-- Training is near-instant (~2 seconds), which matters for a CLI tool that can retrain on demand.
-
-A gradient-boosted model (XGBoost) was considered but provided marginal improvement for significantly more hyperparameter tuning complexity.
-
-### 5.3 Confidence from Inter-Tree Variance
-
-Rather than outputting only a point prediction, the delay predictor computes predictions from all 120 individual trees and uses the standard deviation as a proxy for uncertainty. High agreement across trees → high confidence → the model "knows" this scenario well. This is not a formal Bayesian interval but is a pragmatic, well-established technique for Random Forest uncertainty quantification.
-
-### 5.4 Connection Buffer Thresholds
-
-The 30-minute (safe), 15-minute (risky), and ≤15-minute (not possible) thresholds were chosen based on typical Indian Railways platform transfer times at major junctions. These are configurable constants in `connection_checker.py`.
-
-### 5.5 Weighted Ranking Formula
-
-The recommender uses `0.40 * time + 0.40 * reliability + 0.20 * simplicity`. The equal weighting of time and reliability reflects the insight that *a fast route you're likely to miss is worse than a slightly slower reliable one*. Simplicity (fewer interchanges) gets a lower weight because connections are already risk-assessed.
-
----
-
-## 6. Challenges Faced
-
-### 6.1 Web Scraping Limitations
-
-The original plan was to scrape real delay data from NTES. We built a fully functional scraper with rotating user agents, request throttling, and checkpoint-based resumption. However:
-
-- NTES's anti-bot protections became increasingly aggressive during testing.
-- The site's HTML structure changed mid-development, requiring scraper updates.
-- Scraping 3,000+ station pairs at respectful intervals would take ~2 hours per run, making rapid iteration impractical.
-
-**Resolution**: We pivoted to synthetic data generation while preserving the scraper as an optional module (`scrape-all` CLI command) for users who wish to attempt real data collection.
-
-### 6.2 Graph Scalability
-
-With 78 stations and 64 trains, the two-interchange route search involves an O(n³) loop over all possible mid-station pairs (78 × 78 × 78 ≈ 474,552 combinations). To keep search responsive:
-
-- We cap results at 20 two-interchange routes and 30 one-interchange routes.
-- The `_trains_between()` method short-circuits if no trains serve a station pair.
-- Practical testing showed search times under 3 seconds for any station pair.
-
-Scaling to the full Indian Railways network (7,000+ stations) would require a fundamentally different approach — likely a contraction hierarchy or a pre-computed connection scan algorithm.
-
-### 6.3 Feature Engineering for Unseen Trains/Stations
-
-The Random Forest uses label-encoded train IDs and station codes. At prediction time, a train or station not present in the training set would throw an error. We handle this gracefully by:
-
-- Mapping unseen labels to index `0` (a fallback).
-- Falling back to a global average delay of 12 minutes when station-specific averages are unavailable.
-
-This ensures the predict-delay command never crashes, even for ad-hoc queries.
-
-### 6.4 Windows Terminal Encoding
-
-Rich's Unicode-heavy output (emoji, box-drawing characters) caused encoding errors on some Windows terminal configurations. We resolved this by force-reconfiguring `sys.stdout` to UTF-8 with error replacement at the top of `display.py`.
-
----
-
-## 7. Results & Evaluation
-
-### 7.1 Model Performance
-
-The Random Forest delay prediction model achieves the following metrics on a held-out 20% test set:
-
-| Metric | Value |
+| Package | Purpose |
 |---|---|
-| Mean Absolute Error (MAE) | ~5.5 minutes |
-| Root Mean Squared Error (RMSE) | ~7.2 minutes |
-| R² Score | ~0.87 |
-
-These numbers should be interpreted in the context of a synthetic dataset. On real-world data, we would expect higher MAE (delays are noisier and influenced by factors not captured in our features, such as weather and signaling failures). However, the model architecture and pipeline are designed to handle a simple data swap.
-
-### 7.2 Route Search Quality
-
-The route planner successfully finds direct, one-hop, and two-hop routes between all tested station pairs. Sample search results:
-
-- **Mumbai Central → New Delhi**: Finds direct Rajdhani and Superfast options, plus one-interchange alternatives via Vadodara, Kota, and Bhopal.
-- **Chennai → Kolkata**: Finds multi-leg options via Vijayawada and Nagpur.
-- All routes include connection feasibility assessments with predicted delays.
-
-### 7.3 Connection Checker Accuracy
-
-In synthetic testing, the connection checker correctly identified:
-
-- **SAFE** connections where buffer windows were ample (>30 minutes).
-- **RISKY** connections where predicted delays consumed most of the buffer.
-- **NOT POSSIBLE** connections where even optimistic predictions left insufficient transfer time.
+| `typer[all]` | CLI framework with auto-help |
+| `rich` | Terminal formatting and colors |
+| `networkx` | Graph construction and traversal |
+| `scikit-learn` | Random Forest model |
+| `pandas` | Data loading and manipulation |
+| `numpy` | Numerical operations |
+| `joblib` | Model serialization |
 
 ---
 
-## 8. What I Learned
+## Quick Start
 
-### 8.1 Graph Theory in Practice
+### Step 1: Generate the dataset
 
-Building this project solidified my understanding of how graph representations map to real-world networks. The choice between a simple graph, digraph, and multi-digraph had direct consequences for the expressiveness of route queries. The Haversine-based heuristic for A* search was a satisfying application of geographic math to inform pathfinding.
+```bash
+python main.py generate-data
+```
 
-### 8.2 ML on Tabular Data
+This creates `stations.csv`, `train_schedule.csv`, and `historical_delays.csv` in the `data/` directory.
 
-Working with Random Forests reinforced that deep learning is not always the answer. For structured, tabular datasets of moderate size, ensemble tree methods remain highly competitive and offer practical advantages: fast training, no GPU requirement, built-in feature importance, and natural uncertainty estimation through inter-tree variance.
+> **Note:** If the `data/` directory already contains these files, you can skip this step.
 
-### 8.3 System Design Thinking
+### Step 2: Train the ML model
 
-The project forced me to think about how multiple components interact: the graph feeds routes to the planner, which feeds legs to the connection checker, which queries the delay predictor, which feeds results to the recommender, which finally renders through the display layer. Keeping these interfaces clean and well-typed (using dataclasses) was essential for maintainability.
+```bash
+python main.py train-model
+```
 
-### 8.4 Data Realism vs. Pragmatism
+This trains a Random Forest Regressor on the historical delay data and saves it to `models/`. Training takes approximately 2–5 seconds.
 
-The scraping saga taught me an important lesson: when real data acquisition is impractical within project constraints, it's better to build a robust pipeline with synthetic data and document the limitation honestly than to deliver a fragile system tied to a flaky data source. The architecture is data-source-agnostic by design.
+### Step 3: Search for routes
 
-### 8.5 CLI UX Matters
+```bash
+python main.py search --from "Mumbai Central" --to "New Delhi"
+```
 
-Using Rich for terminal output transformed the tool from a wall of print statements into something visually clear and even enjoyable to use. Color-coding connection risk levels, rendering route cards in bordered panels, and showing spinner animations during computation — these details don't affect the algorithm but dramatically improve the user experience.
-
----
-
-## 9. Future Work
-
-If this project were to be extended beyond the course:
-
-1. **Real Data Integration** — Partner with a data provider or build a more resilient scraper to replace synthetic data with actual delay records.
-2. **Live Running Status** — Integrate real-time train position data to update delay predictions dynamically during travel.
-3. **Web/Mobile Interface** — Wrap the backend in a Flask/FastAPI service and build a responsive front-end.
-4. **Advanced ML** — Experiment with gradient boosting (LightGBM) and incorporate weather, festival, and signaling data as additional features.
-5. **Full Network Scale** — Implement contraction hierarchies or RAPTOR to handle the full 7,000-station Indian Railways network.
-
----
-
-## 10. Conclusion
-
-RailMind demonstrates that meaningful AI applications don't require exotic architectures or massive compute. By combining a well-chosen graph representation (NetworkX MultiDiGraph), a practical ML model (Random Forest with confidence estimation), and thoughtful system design (modular pipeline with clean interfaces), it delivers a tool that addresses a genuine, everyday frustration for Indian railway passengers.
-
-The project is not a polished production system — it operates on synthetic data and covers a subset of stations. But the architecture, the algorithmic choices, and the engineering are designed for extensibility. The most important outcome is not the tool itself but the practice of identifying a real problem, decomposing it into tractable sub-problems, and applying course concepts to build a clear, well-documented solution.
+This will:
+1. Load the railway graph
+2. Find up to 5 routes (direct and with interchanges)
+3. Predict delays for each leg
+4. Check connection feasibility at interchange stations
+5. Rank and display results with labels (Best Route, Fastest, Safest)
 
 ---
 
-*Submitted as part of the AI/ML course final project.*
-*Author: Rishi*
-*Date: March 2026*
+## All Commands
+
+### `generate-data` — Generate the dataset
+
+```bash
+python main.py generate-data
+```
+
+Creates synthetic station, schedule, and delay data in the `data/` directory.
+
+---
+
+### `train-model` — Train the delay prediction model
+
+```bash
+python main.py train-model          # Train only if no cached model exists
+python main.py train-model --force  # Force retrain from scratch
+```
+
+Displays model metrics (MAE, RMSE, R² score) after training.
+
+---
+
+### `search` — Find routes between two stations
+
+```bash
+python main.py search --from "Mumbai Central" --to "New Delhi"
+python main.py search --from BCT --to NDLS                        # Use station codes
+python main.py search --from "Chennai" --to "Kolkata" --date 2026-04-15
+python main.py search --from "Pune" --to "Ahmedabad" --max 3      # Limit results
+```
+
+**Options:**
+| Flag | Description | Default |
+|---|---|---|
+| `--from`, `-f` | Source station (name or code) | *required* |
+| `--to`, `-t` | Destination station (name or code) | *required* |
+| `--date`, `-d` | Travel date (YYYY-MM-DD) | Today |
+| `--max`, `-n` | Maximum routes to display | 5 |
+
+---
+
+### `stations` — List all stations
+
+```bash
+python main.py stations                    # List all 78 stations
+python main.py stations --zone WR          # Filter by railway zone
+python main.py stations --query "Mumbai"   # Search by name or city
+```
+
+---
+
+### `schedule` — View a train's timetable
+
+```bash
+python main.py schedule --train-id 12951   # Mumbai Rajdhani Express
+```
+
+---
+
+### `predict-delay` — Predict delay for a specific train at a station
+
+```bash
+python main.py predict-delay --train-id 12951 --station NDLS --hour 8 --dow 1 --month 4
+```
+
+**Options:**
+| Flag | Description | Default |
+|---|---|---|
+| `--train-id`, `-t` | Train number | *required* |
+| `--station`, `-s` | Station code | *required* |
+| `--hour`, `-H` | Scheduled arrival hour (0–23) | 8 |
+| `--dow`, `-w` | Day of week (0=Mon … 6=Sun) | 0 |
+| `--month`, `-m` | Month (1–12) | 4 |
+
+---
+
+### `stats` — Show system statistics
+
+```bash
+python main.py stats
+```
+
+Displays dataset statistics (stations, trains, records), model status, and a list of all available trains.
+
+---
+
+## Example Output
+
+### Route Search
+
+```
+╭──────────────────────────────────────────────────────────────╮
+│   ** RAILMIND  -- AI Train Route Optimizer & Delay Predictor │
+╰──────────────────────────────────────────────────────────────╯
+
+──────── Search Results  Mumbai Central > New Delhi (2026-03-30) ────────
+
+  Found 4 route(s). Predicting delays…
+
+╭── [BEST] Best Route  Total: 17h 55m  Delay: 0min  Interchanges: 0 ────╮
+│ Train                  ID     Type      From          Dep   To      Arr│
+│ Mumbai Rajdhani Exp    12951  Rajdhani  BCT           17:00 NDLS    10:55│
+│                                                                        │
+╰────────────────────────────────────────────────────────────────────────╯
+```
+
+### Delay Prediction
+
+```
+╭────────────────── Delay Prediction ──────────────────╮
+│  Mumbai Rajdhani Express (12951) @ NDLS              │
+│                                                       │
+│  Predicted Delay  : 8.3 minutes                       │
+│  Confidence       : 82%                               │
+│  Severity bar     : ||||                              │
+╰──────────────────────────────────────────────────────╯
+```
+
+---
+
+## How It Works
+
+### 1. Graph Construction
+
+The railway network is modeled as a **NetworkX MultiDiGraph**:
+- **Nodes** = 78 railway stations (with lat/lon coordinates)
+- **Edges** = train segments between consecutive stops (one edge per train per segment)
+- Multiple trains on the same route segment exist as parallel edges
+
+### 2. Route Search
+
+The route planner uses a multi-strategy approach:
+1. **Direct trains** — scans the schedule for trains serving both stations in order
+2. **One-interchange routes** — iterates over all possible mid-stations and validates connection timing (minimum 20-minute buffer)
+3. **Two-interchange routes** — extends to three-leg journeys if fewer than *k* routes found
+
+### 3. Delay Prediction
+
+A **Random Forest Regressor** (120 trees, max depth 12) is trained on historical delay data with features:
+- Encoded train ID, station code, and railway zone
+- Scheduled arrival hour, day of week, and month
+- Historical average delay for that station
+
+**Confidence** is computed from the standard deviation of predictions across all 120 trees — low variance means high agreement, thus high confidence.
+
+### 4. Connection Feasibility
+
+For each interchange, the system:
+1. Predicts the arriving train's delay
+2. Computes `buffer = next_train_departure - (scheduled_arrival + predicted_delay)`
+3. Labels: **SAFE** (>30 min), **RISKY** (15–30 min), **NOT POSSIBLE** (≤15 min)
+
+### 5. Route Ranking
+
+Routes are scored: `0.4 × time_score + 0.4 × reliability_score + 0.2 × simplicity_score` and labeled as Best Route, Fastest, or Safest.
+
+---
+
+## Tech Stack
+
+| Technology | Version | Role |
+|---|---|---|
+| Python | 3.9+ | Core language |
+| NetworkX | ≥ 3.0 | Graph data structure and algorithms |
+| scikit-learn | ≥ 1.3 | Random Forest model |
+| Pandas | ≥ 2.0 | Data manipulation |
+| NumPy | ≥ 1.24 | Numerical operations |
+| Typer | ≥ 0.9 | CLI framework |
+| Rich | ≥ 13.0 | Terminal UI rendering |
+| joblib | ≥ 1.3 | Model serialization |
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|---|---|
+| `FileNotFoundError: Data files not found` | Run `python main.py generate-data` first |
+| `ModuleNotFoundError` | Run `pip install -r requirements.txt` |
+| Unicode/emoji rendering issues | Use Windows Terminal or PowerShell 7+. Set `chcp 65001` for UTF-8. |
+| Model not found | Run `python main.py train-model` to train the Random Forest |
+| Station not found | Use `python main.py stations` to see valid station names/codes |
+
+---
+
+## License
+
+This project was created as a course project. Feel free to use and modify it for educational purposes.
+
+---
+
+## Author
+
+**Rishi**
+March 2026
