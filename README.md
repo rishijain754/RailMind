@@ -129,6 +129,19 @@ This will:
 
 ---
 
+## Important: Data Limitations
+
+> **⚠️ The dataset included in this project is a curated subset, not the complete Indian Railways network.**
+
+- The project covers **78 major stations** out of 7,000+ stations in the real network, and **64 trains** out of 13,000+ active services.
+- Historical delay data (**15,280 records**) is **synthetically generated** — not scraped from live sources. Real-world delay data from Indian Railways is not available through any public API, and the NTES website is protected against automated scraping.
+- The `data/` directory may be **empty** when you first clone the repository. You **must run `python main.py generate-data`** before using any other command to populate the dataset files.
+- The trained ML model (`models/delay_model.pkl`) is also **not included** in the repository due to file size (~20 MB). Run `python main.py train-model` to generate it locally.
+
+Despite these limitations, the system architecture is designed to be **data-source-agnostic** — swapping in real data requires only replacing the CSV files with the same column schema. The algorithms, ML pipeline, and CLI interface will work identically.
+
+---
+
 ## All Commands
 
 ### `generate-data` — Generate the dataset
