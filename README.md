@@ -347,5 +347,5 @@ This project was created as a course project. Feel free to use and modify it for
 
 ## Author
 
-**Rishi**
-March 2026
+**Rishi Jain**
+
