@@ -1,0 +1,236 @@
+train_id,train_name,train_type,stop_number,station_code,arrival_time,departure_time,arr_abs_min,dep_abs_min,days,zone
+12951,Mumbai Rajdhani Express,Rajdhani,1,BCT,17:00,17:00,1020,1020,Daily,WR
+12951,Mumbai Rajdhani Express,Rajdhani,2,ST,19:06,19:08,1146,1148,Daily,WR
+12951,Mumbai Rajdhani Express,Rajdhani,3,BRC,20:42,20:44,1242,1244,Daily,WR
+12951,Mumbai Rajdhani Express,Rajdhani,4,ADI,21:39,21:44,1299,1304,Daily,WR
+12951,Mumbai Rajdhani Express,Rajdhani,5,RTM,00:25,00:27,1465,1467,Daily,WR
+12951,Mumbai Rajdhani Express,Rajdhani,6,KOTA,03:12,03:15,1632,1635,Daily,WCR
+12951,Mumbai Rajdhani Express,Rajdhani,7,MTJ,07:16,07:18,1876,1878,Daily,NCR
+12951,Mumbai Rajdhani Express,Rajdhani,8,NDLS,08:35,08:35,1955,1955,Daily,NR
+12952,New Delhi Rajdhani Express,Rajdhani,1,NDLS,16:00,16:00,960,960,Daily,NR
+12952,New Delhi Rajdhani Express,Rajdhani,2,MTJ,17:17,17:19,1037,1039,Daily,NCR
+12952,New Delhi Rajdhani Express,Rajdhani,3,KOTA,21:20,21:23,1280,1283,Daily,WCR
+12952,New Delhi Rajdhani Express,Rajdhani,4,RTM,00:10,00:12,1450,1452,Daily,WR
+12952,New Delhi Rajdhani Express,Rajdhani,5,ADI,02:51,02:54,1611,1614,Daily,WR
+12952,New Delhi Rajdhani Express,Rajdhani,6,BRC,03:48,03:50,1668,1670,Daily,WR
+12952,New Delhi Rajdhani Express,Rajdhani,7,ST,05:24,05:26,1764,1766,Daily,WR
+12952,New Delhi Rajdhani Express,Rajdhani,8,BCT,07:30,07:30,1890,1890,Daily,WR
+12301,Howrah Rajdhani Express,Rajdhani,1,NDLS,17:00,17:00,1020,1020,Daily,NR
+12301,Howrah Rajdhani Express,Rajdhani,2,CNB,21:38,21:40,1298,1300,Daily,NCR
+12301,Howrah Rajdhani Express,Rajdhani,3,PRYJ,22:47,22:49,1367,1369,Daily,NCR
+12301,Howrah Rajdhani Express,Rajdhani,4,GAYA,01:07,01:09,1507,1509,Daily,ECR
+12301,Howrah Rajdhani Express,Rajdhani,5,HWH,03:07,03:07,1627,1627,Daily,ER
+12302,New Delhi Rajdhani Express,Rajdhani,1,HWH,14:05,14:05,845,845,Daily,ER
+12302,New Delhi Rajdhani Express,Rajdhani,2,GAYA,16:03,16:05,963,965,Daily,ECR
+12302,New Delhi Rajdhani Express,Rajdhani,3,PRYJ,18:23,18:25,1103,1105,Daily,NCR
+12302,New Delhi Rajdhani Express,Rajdhani,4,CNB,19:34,19:36,1174,1176,Daily,NCR
+12302,New Delhi Rajdhani Express,Rajdhani,5,NDLS,00:12,00:12,1452,1452,Daily,NR
+12621,Tamil Nadu Express,Superfast,1,NDLS,22:30,22:30,1350,1350,Daily,NR
+12621,Tamil Nadu Express,Superfast,2,AGC,00:40,00:43,1480,1483,Daily,NCR
+12621,Tamil Nadu Express,Superfast,3,JHS,03:38,03:43,1658,1663,Daily,NCR
+12621,Tamil Nadu Express,Superfast,4,NGP,08:52,08:58,1972,1978,Daily,CR
+12621,Tamil Nadu Express,Superfast,5,BZA,15:19,15:24,2359,2364,Daily,SCR
+12621,Tamil Nadu Express,Superfast,6,MAS,19:03,19:03,2583,2583,Daily,SR
+12622,Tamil Nadu Express,Superfast,1,MAS,10:00,10:00,600,600,Daily,SR
+12622,Tamil Nadu Express,Superfast,2,BZA,13:42,13:47,822,827,Daily,SCR
+12622,Tamil Nadu Express,Superfast,3,NGP,20:13,20:20,1213,1220,Daily,CR
+12622,Tamil Nadu Express,Superfast,4,JHS,01:25,01:30,1525,1530,Daily,NCR
+12622,Tamil Nadu Express,Superfast,5,AGC,04:17,04:22,1697,1702,Daily,NCR
+12622,Tamil Nadu Express,Superfast,6,NDLS,06:23,06:23,1823,1823,Daily,NR
+12859,Gitanjali Express,Superfast,1,CSMT,06:05,06:05,365,365,Daily,CR
+12859,Gitanjali Express,Superfast,2,NGP,14:23,14:28,863,868,Daily,CR
+12859,Gitanjali Express,Superfast,3,R,17:45,17:48,1065,1068,Daily,SECR
+12859,Gitanjali Express,Superfast,4,KGP,23:35,23:38,1415,1418,Daily,SER
+12859,Gitanjali Express,Superfast,5,HWH,01:13,01:13,1513,1513,Daily,ER
+12860,Gitanjali Express,Superfast,1,HWH,13:45,13:45,825,825,Daily,ER
+12860,Gitanjali Express,Superfast,2,KGP,15:22,15:24,922,924,Daily,SER
+12860,Gitanjali Express,Superfast,3,R,21:11,21:14,1271,1274,Daily,SECR
+12860,Gitanjali Express,Superfast,4,NGP,00:29,00:34,1469,1474,Daily,CR
+12860,Gitanjali Express,Superfast,5,CSMT,08:53,08:53,1973,1973,Daily,CR
+11041,Mumbai Chennai Express,Express,1,CSMT,23:55,23:55,1435,1435,Daily,CR
+11041,Mumbai Chennai Express,Express,2,PUNE,02:50,03:00,1610,1620,Daily,CR
+11041,Mumbai Chennai Express,Express,3,SC,10:15,10:20,2055,2060,Daily,SCR
+11041,Mumbai Chennai Express,Express,4,BZA,14:38,14:43,2318,2323,Daily,SCR
+11041,Mumbai Chennai Express,Express,5,MAS,18:20,18:20,2540,2540,Daily,SR
+11042,Chennai Mumbai Express,Express,1,MAS,07:00,07:00,420,420,Daily,SR
+11042,Chennai Mumbai Express,Express,2,BZA,10:37,10:42,637,642,Daily,SCR
+11042,Chennai Mumbai Express,Express,3,SC,15:00,15:07,900,907,Daily,SCR
+11042,Chennai Mumbai Express,Express,4,PUNE,22:40,22:53,1360,1373,Daily,CR
+11042,Chennai Mumbai Express,Express,5,CSMT,01:43,01:43,1543,1543,Daily,CR
+12001,Bhopal Shatabdi Express,Shatabdi,1,NDLS,06:00,06:00,360,360,Daily,NR
+12001,Bhopal Shatabdi Express,Shatabdi,2,AGC,08:03,08:08,483,488,Daily,NCR
+12001,Bhopal Shatabdi Express,Shatabdi,3,GWL,09:28,09:30,568,570,Daily,NCR
+12001,Bhopal Shatabdi Express,Shatabdi,4,JHS,10:27,10:32,627,632,Daily,NCR
+12001,Bhopal Shatabdi Express,Shatabdi,5,BPL,13:48,13:48,828,828,Daily,WCR
+12002,New Delhi Shatabdi Express,Shatabdi,1,BPL,17:30,17:30,1050,1050,Daily,WCR
+12002,New Delhi Shatabdi Express,Shatabdi,2,JHS,20:43,20:46,1243,1246,Daily,NCR
+12002,New Delhi Shatabdi Express,Shatabdi,3,GWL,21:45,21:48,1305,1308,Daily,NCR
+12002,New Delhi Shatabdi Express,Shatabdi,4,AGC,23:08,23:13,1388,1393,Daily,NCR
+12002,New Delhi Shatabdi Express,Shatabdi,5,NDLS,01:15,01:15,1515,1515,Daily,NR
+12013,Amritsar Shatabdi Express,Shatabdi,1,NDLS,07:20,07:20,440,440,Daily,NR
+12013,Amritsar Shatabdi Express,Shatabdi,2,CDG,10:58,11:00,658,660,Daily,NR
+12013,Amritsar Shatabdi Express,Shatabdi,3,LDH,11:53,11:55,713,715,Daily,NR
+12013,Amritsar Shatabdi Express,Shatabdi,4,ASR,13:23,13:23,803,803,Daily,NR
+12014,New Delhi Shatabdi Express,Shatabdi,1,ASR,16:30,16:30,990,990,Daily,NR
+12014,New Delhi Shatabdi Express,Shatabdi,2,LDH,18:00,18:02,1080,1082,Daily,NR
+12014,New Delhi Shatabdi Express,Shatabdi,3,CDG,18:54,18:57,1134,1137,Daily,NR
+12014,New Delhi Shatabdi Express,Shatabdi,4,NDLS,22:35,22:35,1355,1355,Daily,NR
+12003,Lucknow Shwarnshatabdi,Shatabdi,1,NDLS,06:10,06:10,370,370,Daily,NR
+12003,Lucknow Shwarnshatabdi,Shatabdi,2,CNB,10:16,10:19,616,619,Daily,NCR
+12003,Lucknow Shwarnshatabdi,Shatabdi,3,LKO,11:36,11:36,696,696,Daily,NR
+12004,New Delhi Shwarnshatabdi,Shatabdi,1,LKO,21:00,21:00,1260,1260,Daily,NR
+12004,New Delhi Shwarnshatabdi,Shatabdi,2,CNB,22:19,22:22,1339,1342,Daily,NCR
+12004,New Delhi Shwarnshatabdi,Shatabdi,3,NDLS,02:27,02:27,1587,1587,Daily,NR
+12841,Coromandel Express,Superfast,1,HWH,14:50,14:50,890,890,Daily,ER
+12841,Coromandel Express,Superfast,2,KGP,16:27,16:32,987,992,Daily,SER
+12841,Coromandel Express,Superfast,3,BBS,19:13,19:18,1153,1158,Daily,ECoR
+12841,Coromandel Express,Superfast,4,VSKP,22:17,22:22,1337,1342,Daily,ECoR
+12841,Coromandel Express,Superfast,5,BZA,01:07,01:12,1507,1512,Daily,SCR
+12841,Coromandel Express,Superfast,6,MAS,04:43,04:43,1723,1723,Daily,SR
+12842,Coromandel Express,Superfast,1,MAS,08:45,08:45,525,525,Daily,SR
+12842,Coromandel Express,Superfast,2,BZA,12:16,12:21,736,741,Daily,SCR
+12842,Coromandel Express,Superfast,3,VSKP,15:07,15:12,907,912,Daily,ECoR
+12842,Coromandel Express,Superfast,4,BBS,18:08,18:13,1088,1093,Daily,ECoR
+12842,Coromandel Express,Superfast,5,KGP,20:54,20:59,1254,1259,Daily,SER
+12842,Coromandel Express,Superfast,6,HWH,22:38,22:38,1358,1358,Daily,ER
+12721,Dakshin Express,Superfast,1,NDLS,23:55,23:55,1435,1435,Daily,NR
+12721,Dakshin Express,Superfast,2,AGC,02:05,02:10,1565,1570,Daily,NCR
+12721,Dakshin Express,Superfast,3,JHS,05:05,05:12,1745,1752,Daily,NCR
+12721,Dakshin Express,Superfast,4,NGP,10:18,10:25,2058,2065,Daily,CR
+12721,Dakshin Express,Superfast,5,SC,16:12,16:12,2412,2412,Daily,SCR
+12722,Dakshin Express,Superfast,1,SC,07:00,07:00,420,420,Daily,SCR
+12722,Dakshin Express,Superfast,2,NGP,12:50,13:00,770,780,Daily,CR
+12722,Dakshin Express,Superfast,3,JHS,17:57,18:04,1077,1084,Daily,NCR
+12722,Dakshin Express,Superfast,4,AGC,21:00,21:05,1260,1265,Daily,NCR
+12722,Dakshin Express,Superfast,5,NDLS,22:58,22:58,1378,1378,Daily,NR
+12657,Bangalore Express,Express,1,MAS,22:30,22:30,1350,1350,Daily,SR
+12657,Bangalore Express,Express,2,SBC,04:27,04:27,1707,1707,Daily,SWR
+12658,Bangalore Express,Express,1,SBC,06:15,06:15,375,375,Daily,SWR
+12658,Bangalore Express,Express,2,MAS,12:12,12:12,732,732,Daily,SR
+16525,Island Express,Express,1,SBC,06:30,06:30,390,390,Daily,SWR
+16525,Island Express,Express,2,CBE,09:33,09:38,573,578,Daily,SR
+16525,Island Express,Express,3,MDU,11:37,11:42,697,702,Daily,SR
+16525,Island Express,Express,4,ERS,14:00,14:05,840,845,Daily,SR
+16525,Island Express,Express,5,TVC,14:45,14:45,885,885,Daily,SR
+16526,Island Express,Express,1,TVC,07:00,07:00,420,420,Daily,SR
+16526,Island Express,Express,2,ERS,07:42,07:48,462,468,Daily,SR
+16526,Island Express,Express,3,MDU,10:03,10:08,603,608,Daily,SR
+16526,Island Express,Express,4,CBE,12:08,12:13,728,733,Daily,SR
+16526,Island Express,Express,5,SBC,15:14,15:14,914,914,Daily,SWR
+12559,Shiv Ganga Express,Superfast,1,NDLS,18:40,18:40,1120,1120,Daily,NR
+12559,Shiv Ganga Express,Superfast,2,CNB,23:18,23:21,1398,1401,Daily,NCR
+12559,Shiv Ganga Express,Superfast,3,PRYJ,00:30,00:35,1470,1475,Daily,NCR
+12559,Shiv Ganga Express,Superfast,4,BSB,02:54,02:54,1614,1614,Daily,NER
+12560,Shiv Ganga Express,Superfast,1,BSB,07:00,07:00,420,420,Daily,NER
+12560,Shiv Ganga Express,Superfast,2,PRYJ,09:23,09:28,563,568,Daily,NCR
+12560,Shiv Ganga Express,Superfast,3,CNB,10:34,10:38,634,638,Daily,NCR
+12560,Shiv Ganga Express,Superfast,4,NDLS,15:12,15:12,912,912,Daily,NR
+15929,Dibrugarh Express,Express,1,NDLS,10:00,10:00,600,600,Daily,NR
+15929,Dibrugarh Express,Express,2,CNB,14:38,14:43,878,883,Daily,NCR
+15929,Dibrugarh Express,Express,3,PRYJ,15:52,15:57,952,957,Daily,NCR
+15929,Dibrugarh Express,Express,4,PNBE,18:40,18:45,1120,1125,Daily,ECR
+15929,Dibrugarh Express,Express,5,GHY,03:48,03:52,1668,1672,Daily,NFR
+15929,Dibrugarh Express,Express,6,DBRG,08:00,08:00,1920,1920,Daily,NFR
+15930,Dibrugarh Express,Express,1,DBRG,08:00,08:00,480,480,Daily,NFR
+15930,Dibrugarh Express,Express,2,GHY,12:12,12:17,732,737,Daily,NFR
+15930,Dibrugarh Express,Express,3,PNBE,21:15,21:20,1275,1280,Daily,ECR
+15930,Dibrugarh Express,Express,4,PRYJ,00:03,00:08,1443,1448,Daily,NCR
+15930,Dibrugarh Express,Express,5,CNB,01:17,01:22,1517,1522,Daily,NCR
+15930,Dibrugarh Express,Express,6,NDLS,06:00,06:00,1800,1800,Daily,NR
+12906,Porbandar Express,Express,1,NDLS,22:00,22:00,1320,1320,Daily,NR
+12906,Porbandar Express,Express,2,MTJ,23:17,23:19,1397,1399,Daily,NCR
+12906,Porbandar Express,Express,3,JP,01:05,01:10,1505,1510,Daily,NWR
+12906,Porbandar Express,Express,4,AII,02:26,02:31,1586,1591,Daily,NWR
+12906,Porbandar Express,Express,5,ADI,05:57,06:02,1797,1802,Daily,WR
+12906,Porbandar Express,Express,6,RJT,08:07,08:07,1927,1927,Daily,WR
+12905,Porbandar Express,Express,1,RJT,13:00,13:00,780,780,Daily,WR
+12905,Porbandar Express,Express,2,ADI,15:08,15:13,908,913,Daily,WR
+12905,Porbandar Express,Express,3,AII,18:39,18:44,1119,1124,Daily,NWR
+12905,Porbandar Express,Express,4,JP,19:59,20:04,1199,1204,Daily,NWR
+12905,Porbandar Express,Express,5,MTJ,21:47,21:50,1307,1310,Daily,NCR
+12905,Porbandar Express,Express,6,NDLS,23:07,23:07,1387,1387,Daily,NR
+42574,Train 42574,Express,1,ADI,08:00,09:00,480,540,Daily,WR
+42574,Train 42574,Express,2,AII,12:00,13:00,720,780,Daily,NWR
+93815,Train 93815,Express,1,ADI,08:00,09:00,480,540,Daily,WR
+93815,Train 93815,Express,2,AII,12:00,13:00,720,780,Daily,NWR
+14496,Train 14496,Express,1,GKP,08:00,09:00,480,540,Daily,NER
+14496,Train 14496,Express,2,TIG,12:00,13:00,720,780,Daily,ECoR
+16916,Train 16916,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+16916,Train 16916,Express,2,RNC,12:00,13:00,720,780,Daily,SER
+15693,Train 15693,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+15693,Train 15693,Express,2,KGP,12:00,13:00,720,780,Daily,SER
+17401,Train 17401,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+17401,Train 17401,Express,2,HWH,12:00,13:00,720,780,Daily,ER
+13877,Train 13877,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+13877,Train 13877,Express,2,R,12:00,13:00,720,780,Daily,SECR
+18034,Train 18034,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+18034,Train 18034,Express,2,BBS,12:00,13:00,720,780,Daily,ECoR
+12889,Train 12889,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+12889,Train 12889,Express,2,VSKP,12:00,13:00,720,780,Daily,ECoR
+16241,Train 16241,Express,1,PNBE,08:00,09:00,480,540,Daily,ECR
+16241,Train 16241,Express,2,BZA,12:00,13:00,720,780,Daily,SCR
+19255,Train 19255,Express,1,VSKP,08:00,09:00,480,540,Daily,ECoR
+19255,Train 19255,Express,2,LDH,12:00,13:00,720,780,Daily,NR
+11414,Train 11414,Express,1,VSKP,08:00,09:00,480,540,Daily,ECoR
+11414,Train 11414,Express,2,ASR,12:00,13:00,720,780,Daily,NR
+19814,Train 19814,Express,1,BZA,08:00,09:00,480,540,Daily,SCR
+19814,Train 19814,Express,2,KGP,12:00,13:00,720,780,Daily,SER
+12392,Train 12392,Express,1,ET,08:00,09:00,480,540,Daily,WCR
+12392,Train 12392,Express,2,DHN,12:00,13:00,720,780,Daily,ECR
+17557,Train 17557,Express,1,KNW,08:00,09:00,480,540,Daily,CR
+17557,Train 17557,Express,2,PUNE,12:00,13:00,720,780,Daily,CR
+12574,Train 12574,Express,1,SGUJ,08:00,09:00,480,540,Daily,NFR
+12574,Train 12574,Express,2,ST,12:00,13:00,720,780,Daily,WR
+15216,Train 15216,Express,1,TATA,08:00,09:00,480,540,Daily,SER
+15216,Train 15216,Express,2,NLR,12:00,13:00,720,780,Daily,SCR
+93815,Train 93815,Express,1,MB,08:00,09:00,480,540,Daily,NR
+27793,Train 27793,Express,1,LTT,08:00,09:00,480,540,Daily,CR
+27793,Train 27793,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+84619,Train 84619,Express,1,NED,08:00,09:00,480,540,Daily,SCR
+84619,Train 84619,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+13618,Train 13618,Express,1,AWB,08:00,09:00,480,540,Daily,SCR
+13618,Train 13618,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+78323,Train 78323,Express,1,KYN,08:00,09:00,480,540,Daily,CR
+78323,Train 78323,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+53034,Train 53034,Express,1,CBP,08:00,09:00,480,540,Daily,ECoR
+53034,Train 53034,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+91109,Train 91109,Express,1,JSME,08:00,09:00,480,540,Daily,ECR
+91109,Train 91109,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+71382,Train 71382,Express,1,JU,08:00,09:00,480,540,Daily,NWR
+71382,Train 71382,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+48732,Train 48732,Express,1,MMR,08:00,09:00,480,540,Daily,CR
+48732,Train 48732,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+26895,Train 26895,Express,1,TUP,08:00,09:00,480,540,Daily,SCR
+26895,Train 26895,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+49688,Train 49688,Express,1,UDZ,08:00,09:00,480,540,Daily,NWR
+49688,Train 49688,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+10674,Train 10674,Express,1,DDN,08:00,09:00,480,540,Daily,NR
+10674,Train 10674,Express,2,NDLS,12:00,13:00,720,780,Daily,NR
+12187,Jabalpur Express,Express,1,NDLS,08:00,08:00,480,480,Daily,NR
+12187,Jabalpur Express,Express,2,GWL,11:50,11:52,710,712,Daily,NCR
+12187,Jabalpur Express,Express,3,BPL,16:35,16:40,995,1000,Daily,WCR
+12187,Jabalpur Express,Express,4,ET,19:10,19:12,1150,1152,Daily,WCR
+12187,Jabalpur Express,Express,5,JBP,22:05,22:05,1325,1325,Daily,WCR
+12188,Jabalpur Express,Express,1,JBP,06:00,06:00,360,360,Daily,WCR
+12188,Jabalpur Express,Express,2,ET,08:50,08:52,530,532,Daily,WCR
+12188,Jabalpur Express,Express,3,BPL,11:30,11:35,690,695,Daily,WCR
+12188,Jabalpur Express,Express,4,GWL,16:20,16:22,980,982,Daily,NCR
+12188,Jabalpur Express,Express,5,NDLS,20:10,20:10,1210,1210,Daily,NR
+22691,Bhopal Jabalpur Rajdhani,Rajdhani,1,NDLS,16:25,16:25,985,985,Daily,NR
+22691,Bhopal Jabalpur Rajdhani,Rajdhani,2,AGC,18:43,18:45,1123,1125,Daily,NCR
+22691,Bhopal Jabalpur Rajdhani,Rajdhani,3,GWL,19:48,19:50,1188,1190,Daily,NCR
+22691,Bhopal Jabalpur Rajdhani,Rajdhani,4,BPL,23:55,00:00,1435,1440,Daily,WCR
+22691,Bhopal Jabalpur Rajdhani,Rajdhani,5,JBP,03:45,03:45,1665,1665,Daily,WCR
+22692,Bhopal Jabalpur Rajdhani,Rajdhani,1,JBP,21:30,21:30,1290,1290,Daily,WCR
+22692,Bhopal Jabalpur Rajdhani,Rajdhani,2,BPL,01:05,01:10,1505,1510,Daily,WCR
+22692,Bhopal Jabalpur Rajdhani,Rajdhani,3,GWL,05:18,05:20,1758,1760,Daily,NCR
+22692,Bhopal Jabalpur Rajdhani,Rajdhani,4,AGC,06:28,06:30,1828,1830,Daily,NCR
+22692,Bhopal Jabalpur Rajdhani,Rajdhani,5,NDLS,09:00,09:00,1980,1980,Daily,NR
+11271,Vindhyachal Express,Express,1,BPL,07:15,07:15,435,435,Daily,WCR
+11271,Vindhyachal Express,Express,2,ET,09:40,09:42,580,582,Daily,WCR
+11271,Vindhyachal Express,Express,3,JBP,12:30,12:35,750,755,Daily,WCR
+11271,Vindhyachal Express,Express,4,NGP,18:00,18:00,1080,1080,Daily,SECR
+11272,Vindhyachal Express,Express,1,NGP,10:00,10:00,600,600,Daily,SECR
+11272,Vindhyachal Express,Express,2,JBP,15:25,15:30,925,930,Daily,WCR
+11272,Vindhyachal Express,Express,3,ET,18:20,18:22,1100,1102,Daily,WCR
+11272,Vindhyachal Express,Express,4,BPL,20:50,20:50,1250,1250,Daily,WCR
